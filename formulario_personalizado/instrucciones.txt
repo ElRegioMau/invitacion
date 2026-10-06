@@ -1,0 +1,60 @@
+en el m1 semana 3 cambia esto:
+Diseño
+Proceso en pseudocódigo
+Convertir un procedimiento de inspección o producción en pasos inequívocos.
+
+por algo relacionado a creación de formaularios con base de datos y agrega lo siguiente listo para copiar y pegar
+
+Extensiones → Apps Script
+
+function doPost(e) {
+
+    var hoja = SpreadsheetApp
+        .getActiveSpreadsheet()
+        .getSheetByName("Ventas");
+
+    var modelo = e.parameter.modelo;
+    var precio = e.parameter.precio;
+    var cliente = e.parameter.cliente;
+
+    hoja.appendRow([
+        modelo,
+        precio,
+        cliente
+    ]);
+
+    return ContentService.createTextOutput("Venta guardada");
+}
+
+***************************
+
+Ahora en tu proyecto HTML crea:
+
+script.js
+
+var formulario = document.getElementById("formulario");
+
+formulario.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    var modelo = document.getElementById("modelo").value;
+    var precio = document.getElementById("precio").value;
+    var cliente = document.getElementById("cliente").value;
+
+    var datos = new URLSearchParams();
+
+    datos.append("modelo", modelo);
+    datos.append("precio", precio);
+    datos.append("cliente", cliente);
+
+    fetch("PEGA_AQUI_TU_URL", {
+        method: "POST",
+        mode: "no-cors",
+        body: datos
+    });
+
+    alert("Venta guardada");
+
+});
+
